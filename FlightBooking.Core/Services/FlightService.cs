@@ -8,6 +8,7 @@ namespace FlightBooking.Core.Services
     {
         private readonly IScheduleService _scheduleService;
         private readonly IConsoleView _consoleView;
+        
         public FlightService(IScheduleService scheduleService, IConsoleView consoleView)
         {
             _scheduleService = scheduleService;
