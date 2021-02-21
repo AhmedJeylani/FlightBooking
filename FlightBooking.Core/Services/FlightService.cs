@@ -78,6 +78,7 @@ namespace FlightBooking.Core.Services
                 else if (enteredText.Contains("exit"))
                 {
                     keepRunning = false;
+                    _consoleView.PrintExiting();
                 }
                 else
                 {

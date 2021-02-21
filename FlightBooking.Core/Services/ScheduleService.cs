@@ -12,12 +12,16 @@ namespace FlightBooking.Core.Services
         private const string Indentation = "    ";
         
         private readonly FlightRouteInfo _flightRoute;
-        private readonly AircraftInfo _aircraft;
+        private readonly AircraftInfo _selectedAircraft;
+        private readonly AircraftInfo[] _aircrafts;
+        private readonly bool _relaxRequirements;
         
         public ScheduleService(IOptions<AppSettings> appSettingsInfo)
         {
             _flightRoute = appSettingsInfo.Value.FlightRouteInfo;
-            _aircraft = appSettingsInfo.Value.AircraftInfo;
+            _aircrafts = appSettingsInfo.Value.Aircrafts;
+            _selectedAircraft = _aircrafts[0];
+            _relaxRequirements = appSettingsInfo.Value.RelaxRequiremnts;
             Passengers = new List<Passenger>();
         }
 
@@ -109,35 +113,52 @@ namespace FlightBooking.Core.Services
 
             result += _verticalWhiteSpace;
 
-            if (_flightRoute.RelaxRequiremnts)
+            if (_relaxRequirements)
             {
-                if (seatsTaken < _aircraft.NumberOfSeats &&
-                    seatsTaken / (double) _aircraft.NumberOfSeats > _flightRoute.MinimumTakeOffPercentage)
+                if (seatsTaken < _selectedAircraft.NumberOfSeats &&
+                    seatsTaken / (double) _selectedAircraft.NumberOfSeats > _flightRoute.MinimumTakeOffPercentage)
                 {
                     result += "THIS FLIGHT MAY PROCEED";
                 }
                 else
                 {
                     result += "FLIGHT MAY NOT PROCEED";
+                    result += getOtherAircrafts(result, seatsTaken);
                 }
             }
             else
             {
                 if (profitSurplus > 0 &&
-                    seatsTaken < _aircraft.NumberOfSeats &&
-                    seatsTaken / (double) _aircraft.NumberOfSeats > _flightRoute.MinimumTakeOffPercentage)
+                    seatsTaken < _selectedAircraft.NumberOfSeats &&
+                    seatsTaken / (double) _selectedAircraft.NumberOfSeats > _flightRoute.MinimumTakeOffPercentage)
                 {
                     result += "THIS FLIGHT MAY PROCEED";
                 }
                 else
                 {
                     result += "FLIGHT MAY NOT PROCEED";
+                    result += getOtherAircrafts(result, seatsTaken);
                 }
             }
 
             return result;
         }
-        
+
+        private string getOtherAircrafts(string result, int seatsTaken)
+        {
+            var otherAircrafts = _aircrafts.Where(x => x.Id != _selectedAircraft.Id);
+            var availableAircrafts = otherAircrafts.Where(x => x.NumberOfSeats > seatsTaken);
+            
+            result += _newLine;
+            foreach (var aircraft in availableAircrafts)
+            {
+                result += _newLine;
+                result += aircraft.Name + " could handle this flight.";
+            }
+
+            return result;
+        }
+
         public List<Passenger> Passengers { get; }
     }
 }

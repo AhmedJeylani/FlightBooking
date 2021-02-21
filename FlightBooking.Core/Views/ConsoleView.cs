@@ -24,13 +24,19 @@ namespace FlightBooking.Core.Views
             System.Console.ResetColor();
         }
 
-        public void PrintSuccessfullyAddedPassenger(string passengerType, string passengerName)
+        public void PrintExiting()
         {
-            System.Console.WriteLine($"{passengerType} passenger {passengerName} has successfully been added");
             System.Console.WriteLine();
+            System.Console.WriteLine("Exiting.....");
         }
 
-        
+        public void PrintSuccessfullyAddedPassenger(string passengerType, string passengerName)
+        {
+            System.Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.WriteLine($"{passengerType} passenger {passengerName} has successfully been added");
+            System.Console.WriteLine();
+            System.Console.ResetColor();
+        }
         
         public string GetUserInput()
         {

@@ -48,6 +48,19 @@ namespace FlightBooking.UnitTests.Tests
 			mockConsoleView.Verify(x => x.PrintSummary(), Times.Once);
 		}
 		
+		[TestMethod]
+		public void FlightService_GetUserInput_PrintsExiting() 
+		{ 
+			var mockConsoleView = new Mock<IConsoleView>();
+			mockConsoleView.Setup(x => x.GetUserInput()).Returns("exit");
+
+			var flightService = new FlightService(Mock.Of<IScheduleService>(), mockConsoleView.Object);
+			
+			flightService.Run();
+			
+			mockConsoleView.Verify(x => x.PrintExiting(), Times.Once);
+		}
+		
 		[DataRow("add general Steve 30", "General", "steve")]
 		[DataRow("add loyalty John 29 1000 true", "Loyalty", "john")]
 		[DataRow("add airline Trevor 47", "Airline Employee", "trevor")]

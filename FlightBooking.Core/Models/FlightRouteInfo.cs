@@ -12,7 +12,5 @@
         public double BaseCost { get; set; }
         public int LoyaltyPointsGained { get; set; }
         public double MinimumTakeOffPercentage { get; set; }
-
-        public bool RelaxRequiremnts { get; set; }
     }
 }
