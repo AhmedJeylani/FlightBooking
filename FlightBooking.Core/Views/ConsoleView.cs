@@ -66,7 +66,7 @@ namespace FlightBooking.Core.Views
             System.Console.WriteLine("<add> <general/discounted/airline> <insert name> <insert age>");
             System.Console.WriteLine();
             System.Console.WriteLine("---- Add Loyalty Passenger ----");
-            System.Console.WriteLine("<add> <loyalty> <insert name> <insert age>");
+            System.Console.WriteLine("<add> <loyalty> <insert name> <insert age> <insert loyalty points> <true/false>(Is passenger using loyalty points)");
             System.Console.WriteLine();
             System.Console.WriteLine("---- Print Summary ----");
             System.Console.WriteLine("<print> <summary>");

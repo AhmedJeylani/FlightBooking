@@ -140,6 +140,7 @@ namespace FlightBooking.Core.Services
                     result += getOtherAircrafts(seatsTaken);
                 }
             }
+            result += _newLine;
             return result;
         }
 
