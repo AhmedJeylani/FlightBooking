@@ -29,6 +29,10 @@ namespace FlightBooking.Console
         private static void ConfigureServices(IServiceCollection serviceCollection)
         {
             // build configuration
+            /*
+             * Using appsetting jsons, I would implement feature that allows the company to import
+             * csv files or even from a database that would read the flights and aircrafts available.
+             */
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false)
