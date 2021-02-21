@@ -155,7 +155,8 @@ namespace FlightBooking.Core.Services
                 result += _newLine;
                 result += aircraft.Name + " could handle this flight.";
             }
-
+            
+            result += _newLine;
             return result;
         }
 

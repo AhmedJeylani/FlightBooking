@@ -7,6 +7,5 @@
         void PrintExiting();
         void PrintSuccessfullyAddedPassenger(string passangeType, string passengerName);
         string GetUserInput();
-
     }
 }

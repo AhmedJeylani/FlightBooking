@@ -32,7 +32,7 @@ namespace FlightBooking.Core.Views
 
         public void PrintSuccessfullyAddedPassenger(string passengerType, string passengerName)
         {
-            System.Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.ForegroundColor = ConsoleColor.Green;
             System.Console.WriteLine($"{passengerType} passenger {passengerName} has successfully been added");
             System.Console.WriteLine();
             System.Console.ResetColor();
