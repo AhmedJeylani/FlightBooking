@@ -124,13 +124,13 @@ namespace FlightBooking.Core.Services
                 else
                 {
                     result += "FLIGHT MAY NOT PROCEED";
-                    result += getOtherAircrafts(result, seatsTaken);
+                    result += getOtherAircrafts(seatsTaken);
                 }
             }
             else
             {
                 if (profitSurplus > 0 &&
-                    seatsTaken < _selectedAircraft.NumberOfSeats &&
+                    seatsTaken <= _selectedAircraft.NumberOfSeats &&
                     seatsTaken / (double) _selectedAircraft.NumberOfSeats > _flightRoute.MinimumTakeOffPercentage)
                 {
                     result += "THIS FLIGHT MAY PROCEED";
@@ -138,7 +138,7 @@ namespace FlightBooking.Core.Services
                 else
                 {
                     result += "FLIGHT MAY NOT PROCEED";
-                    result += getOtherAircrafts(result, seatsTaken);
+                    result += getOtherAircrafts(seatsTaken);
                 }
             }
 
@@ -152,11 +152,12 @@ namespace FlightBooking.Core.Services
         /// <param name="result"></param>
         /// <param name="seatsTaken"></param>
         /// <returns>the new result that has the other available aircrafts</returns>
-        private string getOtherAircrafts(string result, int seatsTaken)
+        private string getOtherAircrafts(int seatsTaken)
         {
             var otherAircrafts = _aircrafts.Where(x => x.Id != _selectedAircraft.Id);
             var availableAircrafts = otherAircrafts.Where(x => x.NumberOfSeats > seatsTaken);
-            
+
+            var result = "";
             result += _newLine;
             result += "Other more suitable aircraft are:";
             foreach (var aircraft in availableAircrafts)
