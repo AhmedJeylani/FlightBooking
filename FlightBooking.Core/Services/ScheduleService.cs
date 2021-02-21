@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using FlightBooking.Core.Models;
 using Microsoft.Extensions.Options;
 
 namespace FlightBooking.Core.Services
@@ -144,12 +145,20 @@ namespace FlightBooking.Core.Services
             return result;
         }
 
+        /// <summary>
+        /// This gets the other aircrafts that are available if there is any.
+        /// It checks if the seats required is enough for the other aircrafts
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="seatsTaken"></param>
+        /// <returns>the new result that has the other available aircrafts</returns>
         private string getOtherAircrafts(string result, int seatsTaken)
         {
             var otherAircrafts = _aircrafts.Where(x => x.Id != _selectedAircraft.Id);
             var availableAircrafts = otherAircrafts.Where(x => x.NumberOfSeats > seatsTaken);
             
             result += _newLine;
+            result += "Other more suitable aircraft are:";
             foreach (var aircraft in availableAircrafts)
             {
                 result += _newLine;

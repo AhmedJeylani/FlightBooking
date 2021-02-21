@@ -1,4 +1,5 @@
 ﻿using System;
+using FlightBooking.Core.Models;
 using FlightBooking.Core.Views;
 
 namespace FlightBooking.Core.Services
@@ -15,11 +16,10 @@ namespace FlightBooking.Core.Services
 
         public void Run()
         {
-            string command;
             var keepRunning = true;
             do
             {
-                command = _consoleView.GetUserInput();
+                var command = _consoleView.GetUserInput();
                 var enteredText = command.ToLower();
                 if (enteredText.Contains("print summary"))
                 {

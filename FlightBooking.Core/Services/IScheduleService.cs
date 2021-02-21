@@ -1,4 +1,6 @@
-﻿namespace FlightBooking.Core.Services
+﻿using FlightBooking.Core.Models;
+
+namespace FlightBooking.Core.Services
 {
     public interface IScheduleService
     {

@@ -1,4 +1,5 @@
 using FlightBooking.Core;
+using FlightBooking.Core.Models;
 using FlightBooking.Core.Services;
 using FlightBooking.Core.Views;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

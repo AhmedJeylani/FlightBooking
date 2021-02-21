@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using FlightBooking.Core;
+using FlightBooking.Core.Models;
 using FlightBooking.Core.Services;
 using FlightBooking.Core.Views;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +21,11 @@ namespace FlightBooking.Console
             var app = serviceProvider.GetService<App>();
             app.Run();
         }
-
+        
+        /// <summary>
+        /// This configures all the required services and injects the dependencies
+        /// </summary>
+        /// <param name="serviceCollection"></param>
         private static void ConfigureServices(IServiceCollection serviceCollection)
         {
             // build configuration
