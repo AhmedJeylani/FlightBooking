@@ -2,6 +2,7 @@
 {
     public interface IConsoleView
     {
+        void PrintProgrammeStarted();
         void PrintSummary();
         void PrintError();
         void PrintExiting();

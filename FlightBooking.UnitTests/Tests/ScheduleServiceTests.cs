@@ -49,18 +49,18 @@ namespace FlightBooking.UnitTests.Tests
             {
                 Type = PassengerType.General,
                 Name = "Ahmed",
-                Age= 24,
+                Age = 24,
                 AllowedBags = 1
             };
-            
+
             var secondPassenger = new Passenger
             {
                 Type = PassengerType.LoyaltyMember,
                 Name = "John",
-                Age= 22,
+                Age = 22,
                 AllowedBags = 2
             };
-            
+
             var scheduleService = new ScheduleService(Options.Create(createAppSettings()));
             scheduleService.AddPassenger(firstPassenger);
             scheduleService.AddPassenger(secondPassenger);
@@ -69,8 +69,7 @@ namespace FlightBooking.UnitTests.Tests
             Assert.AreEqual(firstPassenger.Type, scheduleService.Passengers.First().Type);
             Assert.AreEqual(firstPassenger.Name, scheduleService.Passengers.First().Name);
         }
-        
-        
+
         [TestMethod]
         public void ScheduleService_GetSummary_FlightProceeded()
         {

@@ -7,7 +7,6 @@
         public int AllowedBags { get; set; }
         public int LoyaltyPoints { get; set; }
         public bool IsUsingLoyaltyPoints { get; set; }
-
         public PassengerType Type { get; set; }
     }
     

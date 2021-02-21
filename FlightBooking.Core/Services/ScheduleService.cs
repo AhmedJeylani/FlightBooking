@@ -92,7 +92,6 @@ namespace FlightBooking.Core.Services
             result += _newLine;
             result += Indentation + "Airline employee comps: " + Passengers.Count(p => p.Type == PassengerType.AirlineEmployee);
 
-            
             result += _verticalWhiteSpace;
             result += "Total expected baggage: " + totalExpectedBaggage;
 
@@ -141,7 +140,6 @@ namespace FlightBooking.Core.Services
                     result += getOtherAircrafts(seatsTaken);
                 }
             }
-
             return result;
         }
 
@@ -155,9 +153,17 @@ namespace FlightBooking.Core.Services
         private string getOtherAircrafts(int seatsTaken)
         {
             var otherAircrafts = _aircrafts.Where(x => x.Id != _selectedAircraft.Id);
-            var availableAircrafts = otherAircrafts.Where(x => x.NumberOfSeats > seatsTaken);
+            var availableAircrafts = otherAircrafts.Where(x => x.NumberOfSeats > seatsTaken).ToArray();
 
             var result = "";
+
+            if (!availableAircrafts.Any())
+            {
+                result += _newLine;
+                result += "No Other Aircrafts can handle this Flight";
+                return result;
+            }
+
             result += _newLine;
             result += "Other more suitable aircraft are:";
             foreach (var aircraft in availableAircrafts)

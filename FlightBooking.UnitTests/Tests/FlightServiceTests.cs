@@ -14,7 +14,7 @@ namespace FlightBooking.UnitTests.Tests
 		public void FlightService_GetUserInput_Called()
 		{
 			var mockConsoleView = new Mock<IConsoleView>();
-			mockConsoleView.SetupSequence(x => x.GetUserInput()).Returns("anything").Returns("exit");
+			mockConsoleView.SetupSequence(x => x.GetUserInput()).Returns("exit");
 
 			var flightService = new FlightService(Mock.Of<IScheduleService>(), mockConsoleView.Object);
 
@@ -22,7 +22,20 @@ namespace FlightBooking.UnitTests.Tests
 
 			mockConsoleView.Verify(x => x.GetUserInput(), Times.Once);
 		}
+		
+		[TestMethod]
+		public void FlightService_GetUserInput_PrintProgrammeStarted()
+		{
+			var mockConsoleView = new Mock<IConsoleView>();
+			mockConsoleView.SetupSequence(x => x.GetUserInput()).Returns("anything").Returns("exit");
 
+			var flightService = new FlightService(Mock.Of<IScheduleService>(), mockConsoleView.Object);
+
+			flightService.Run();
+
+			mockConsoleView.Verify(x => x.PrintProgrammeStarted(), Times.Once);
+		}
+		
 		[TestMethod]
 		public void FlightService_GetUserInput_IncorrectInput_PrintsError()
 		{

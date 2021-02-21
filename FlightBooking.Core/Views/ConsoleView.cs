@@ -11,6 +11,15 @@ namespace FlightBooking.Core.Views
             _scheduleService = scheduleService;
         }
 
+        public void PrintProgrammeStarted()
+        {
+            System.Console.ForegroundColor = ConsoleColor.Yellow;
+            System.Console.WriteLine("Starting Programme! Here are a list of known commands:");
+            knownCommands();
+            System.Console.WriteLine();
+            System.Console.ResetColor();
+        }
+
         public void PrintSummary()
         {
             System.Console.WriteLine();
@@ -20,7 +29,10 @@ namespace FlightBooking.Core.Views
         public void PrintError()
         {
             System.Console.ForegroundColor = ConsoleColor.Red;
-            System.Console.WriteLine("UNKNOWN INPUT");
+            System.Console.WriteLine();
+            System.Console.WriteLine("Unknown Command! Here are a list of known commands:");
+            knownCommands();
+            System.Console.WriteLine();
             System.Console.ResetColor();
         }
 
@@ -42,6 +54,21 @@ namespace FlightBooking.Core.Views
         {
             System.Console.WriteLine("Please enter command."); 
             return System.Console.ReadLine() ?? "";
+        }
+
+        private void knownCommands()
+        {
+            System.Console.WriteLine("---- Add Passenger (General/Discounted/Airline Employee) ----");
+            System.Console.WriteLine("<add> <general/discounted/airline> <insert name> <insert age>");
+            System.Console.WriteLine();
+            System.Console.WriteLine("---- Add Loyalty Passenger ----");
+            System.Console.WriteLine("<add> <loyalty> <insert name> <insert age>");
+            System.Console.WriteLine();
+            System.Console.WriteLine("---- Print Summary ----");
+            System.Console.WriteLine("<print> <summary>");
+            System.Console.WriteLine();
+            System.Console.WriteLine("---- Exit Programme ----");
+            System.Console.WriteLine("<exit>");
         }
     }
 }

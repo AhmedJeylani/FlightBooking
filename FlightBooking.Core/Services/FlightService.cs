@@ -18,6 +18,7 @@ namespace FlightBooking.Core.Services
         public void Run()
         {
             var keepRunning = true;
+            _consoleView.PrintProgrammeStarted();
             do
             {
                 var command = _consoleView.GetUserInput();
