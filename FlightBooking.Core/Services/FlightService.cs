@@ -21,6 +21,10 @@ namespace FlightBooking.Core.Services
             _consoleView.PrintProgrammeStarted();
             do
             {
+                /*
+                 * I would like to add a better handling of this and instead give users the ability to choose their options
+                 * instead of having to manually enter it is. This would lead to less human error
+                */
                 var command = _consoleView.GetUserInput();
                 var enteredText = command.ToLower();
                 if (enteredText.Contains("print summary"))

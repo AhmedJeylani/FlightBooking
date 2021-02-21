@@ -55,7 +55,11 @@ namespace FlightBooking.Core.Views
             System.Console.WriteLine("Please enter command."); 
             return System.Console.ReadLine() ?? "";
         }
-
+        
+        /// <summary>
+        /// This method is used to give users an indication of what all the possible commands are.
+        /// This prints a list of all the valid commands and its structure
+        /// </summary>
         private void knownCommands()
         {
             System.Console.WriteLine("---- Add Passenger (General/Discounted/Airline Employee) ----");

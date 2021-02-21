@@ -12,14 +12,14 @@ namespace FlightBooking.Core.Services
         private readonly string _newLine = Environment.NewLine;
         private const string Indentation = "    ";
         
-        private readonly FlightRouteInfo _flightRoute;
-        private readonly AircraftInfo _selectedAircraft;
-        private readonly AircraftInfo[] _aircrafts;
+        private readonly FlightRoute _flightRoute;
+        private readonly Plane _selectedAircraft;
+        private readonly Plane[] _aircrafts;
         private readonly bool _relaxRequirements;
         
         public ScheduleService(IOptions<AppSettings> appSettingsInfo)
         {
-            _flightRoute = appSettingsInfo.Value.FlightRouteInfo;
+            _flightRoute = appSettingsInfo.Value.FlightRoute;
             _aircrafts = appSettingsInfo.Value.Aircrafts;
             _selectedAircraft = _aircrafts[0];
             _relaxRequirements = appSettingsInfo.Value.RelaxRequiremnts;

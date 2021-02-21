@@ -15,24 +15,22 @@ namespace FlightBooking.UnitTests.Tests
             return new AppSettings
             {
                 RelaxRequiremnts = false,
-                FlightRouteInfo = new FlightRouteInfo
+                FlightRoute = new FlightRoute("London", "Paris")
                 {
-                    Origin = "London",
-                    Destination = "Paris",
                     BaseCost = 50,
                     BasePrice = 100,
                     LoyaltyPointsGained = 5,
                     MinimumTakeOffPercentage = 0.7
                 },
-                Aircrafts = new AircraftInfo[]
+                Aircrafts = new Plane[]
                 {
-                    new AircraftInfo
+                    new Plane
                     {
                         Id = 123,
                         Name = "Ahmed 101",
                         NumberOfSeats = 1
                     },
-                    new AircraftInfo
+                    new Plane
                     {
                         Id = 1,
                         Name = "Airlines 101",

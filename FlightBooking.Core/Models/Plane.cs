@@ -1,6 +1,6 @@
 ﻿namespace FlightBooking.Core.Models
 {
-    public class AircraftInfo
+    public class Plane
     {
         public int Id { get; set; }
         public string Name { get; set; }
