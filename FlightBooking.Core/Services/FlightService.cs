@@ -95,6 +95,10 @@ namespace FlightBooking.Core.Services
                 }
                 catch(Exception ex) 
                 {
+                    // This handles when the users adds the correct commands but doesn't fill
+                    // out the rest of the fields e.g. name and age
+                    // Would like to add better error handling and logging throughout the application. 
+                    // Maybe a local log file 
                     if (ex is IndexOutOfRangeException)
                     {
                         _consoleView.PrintMissingFields();
