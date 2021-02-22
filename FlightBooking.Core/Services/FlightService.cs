@@ -21,75 +21,90 @@ namespace FlightBooking.Core.Services
             _consoleView.PrintProgrammeStarted();
             do
             {
-                /*
-                 * I would like to add a better handling of this and instead give users the ability to choose their options
-                 * instead of having to manually enter it is. This would lead to less human error
-                */
-                var command = _consoleView.GetUserInput();
-                var enteredText = command.ToLower();
-                if (enteredText.Contains("print summary"))
+                try
                 {
-                    _consoleView.PrintSummary();
-                }
-                else if (enteredText.Contains("add general"))
-                {
-                    var passengerSegments = enteredText.Split(' ');
-                    _scheduleService.AddPassenger(new Passenger
+                    /*
+                     * I would like to add a better handling of this and instead give users the ability to choose th
+                     * instead of having to manually enter it is. This would lead to less human error
+                     */
+                    var command = _consoleView.GetUserInput();
+                    var enteredText = command.ToLower();
+                    if (enteredText.Contains("print summary"))
                     {
-                        Type = PassengerType.General, 
-                        Name = passengerSegments[2], 
-                        Age = Convert.ToInt32(passengerSegments[3]),
-                        AllowedBags = 1
-                    });
-                    _consoleView.PrintSuccessfullyAddedPassenger("General", passengerSegments[2]);
-                }
-                else if (enteredText.Contains("add loyalty"))
-                {
-                    var passengerSegments = enteredText.Split(' ');
-                    _scheduleService.AddPassenger(new Passenger
+                        _consoleView.PrintSummary();
+                    }
+                    else if (enteredText.Contains("add general"))
                     {
-                        Type = PassengerType.LoyaltyMember, 
-                        Name = passengerSegments[2], 
-                        Age = Convert.ToInt32(passengerSegments[3]),
-                        AllowedBags = 2,
-                        LoyaltyPoints = Convert.ToInt32(passengerSegments[4]),
-                        IsUsingLoyaltyPoints = Convert.ToBoolean(passengerSegments[5]),
-                    });
-                    _consoleView.PrintSuccessfullyAddedPassenger("Loyalty", passengerSegments[2]);
-                }
-                else if (enteredText.Contains("add discounted"))
-                {
-                    var passengerSegments = enteredText.Split(' ');
-                    _scheduleService.AddPassenger(new Passenger
+                        var passengerSegments = enteredText.Split(' ');
+                        _scheduleService.AddPassenger(new Passenger
+                        {
+                            Type = PassengerType.General,
+                            Name = passengerSegments[2],
+                            Age = Convert.ToInt32(passengerSegments[3]),
+                            AllowedBags = 1
+                        });
+                        _consoleView.PrintSuccessfullyAddedPassenger("General", passengerSegments[2]);
+                    }
+                    else if (enteredText.Contains("add loyalty"))
                     {
-                        Type = PassengerType.Discounted,
-                        Name = passengerSegments[2],
-                        Age = Convert.ToInt32(passengerSegments[3]),
-                        AllowedBags = 0,
-                    });
-                    _consoleView.PrintSuccessfullyAddedPassenger("Discounted", passengerSegments[2]);
-                }
-                else if (enteredText.Contains("add airline"))
-                {
-                    var passengerSegments = enteredText.Split(' ');
-                    _scheduleService.AddPassenger(new Passenger
+                        var passengerSegments = enteredText.Split(' ');
+                        _scheduleService.AddPassenger(new Passenger
+                        {
+                            Type = PassengerType.LoyaltyMember,
+                            Name = passengerSegments[2],
+                            Age = Convert.ToInt32(passengerSegments[3]),
+                            AllowedBags = 2,
+                            LoyaltyPoints = Convert.ToInt32(passengerSegments[4]),
+                            IsUsingLoyaltyPoints = Convert.ToBoolean(passengerSegments[5]),
+                        });
+                        _consoleView.PrintSuccessfullyAddedPassenger("Loyalty", passengerSegments[2]);
+                    }
+                    else if (enteredText.Contains("add discounted"))
                     {
-                        Type = PassengerType.AirlineEmployee, 
-                        Name = passengerSegments[2], 
-                        Age = Convert.ToInt32(passengerSegments[3]),
-                        AllowedBags = 1,
-                    });
-                    _consoleView.PrintSuccessfullyAddedPassenger("Airline Employee", passengerSegments[2]);
+                        var passengerSegments = enteredText.Split(' ');
+                        _scheduleService.AddPassenger(new Passenger
+                        {
+                            Type = PassengerType.Discounted,
+                            Name = passengerSegments[2],
+                            Age = Convert.ToInt32(passengerSegments[3]),
+                            AllowedBags = 0,
+                        });
+                        _consoleView.PrintSuccessfullyAddedPassenger("Discounted", passengerSegments[2]);
+                    }
+                    else if (enteredText.Contains("add airline"))
+                    {
+                        var passengerSegments = enteredText.Split(' ');
+                        _scheduleService.AddPassenger(new Passenger
+                        {
+                            Type = PassengerType.AirlineEmployee,
+                            Name = passengerSegments[2],
+                            Age = Convert.ToInt32(passengerSegments[3]),
+                            AllowedBags = 1,
+                        });
+                        _consoleView.PrintSuccessfullyAddedPassenger("Airline Employee", passengerSegments[2]);
+                    }
+                    else if (enteredText.Contains("exit"))
+                    {
+                        keepRunning = false;
+                        _consoleView.PrintExiting();
+                    }
+                    else
+                    {
+                        _consoleView.PrintError();
+                    }
                 }
-                else if (enteredText.Contains("exit"))
+                catch(Exception ex) 
                 {
-                    keepRunning = false;
-                    _consoleView.PrintExiting();
+                    if (ex is IndexOutOfRangeException)
+                    {
+                        _consoleView.PrintMissingFields();
+                    }
+                    else 
+                    { 
+                        _consoleView.PrintError();
+                    }
                 }
-                else
-                {
-                    _consoleView.PrintError();
-                }
+
             } while (keepRunning);
         }
     }

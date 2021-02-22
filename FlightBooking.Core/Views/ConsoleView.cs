@@ -36,6 +36,16 @@ namespace FlightBooking.Core.Views
             System.Console.ResetColor();
         }
 
+        public void PrintMissingFields()
+        {
+            System.Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.WriteLine();
+            System.Console.WriteLine("You are missing fields! Here are a list of known commands with their correct fields:");
+            knownCommands();
+            System.Console.WriteLine();
+            System.Console.ResetColor();
+        }
+
         public void PrintExiting()
         {
             System.Console.WriteLine();

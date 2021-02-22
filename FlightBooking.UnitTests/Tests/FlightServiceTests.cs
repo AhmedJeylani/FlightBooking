@@ -1,3 +1,4 @@
+using System;
 using FlightBooking.Core;
 using FlightBooking.Core.Models;
 using FlightBooking.Core.Services;
@@ -47,6 +48,32 @@ namespace FlightBooking.UnitTests.Tests
 			flightService.Run();
 			
 			mockConsoleView.Verify(x => x.PrintError(), Times.Once);
+		}
+		
+		[TestMethod]
+		public void FlightService_GetUserInput_RandomError_PrintsError()
+		{
+			var mockConsoleView = new Mock<IConsoleView>();
+			mockConsoleView.SetupSequence(x => x.GetUserInput()).Throws(new Exception("Random Exception")).Returns("exit");
+
+			var flightService = new FlightService(Mock.Of<IScheduleService>(), mockConsoleView.Object);
+			
+			flightService.Run();
+			
+			mockConsoleView.Verify(x => x.PrintError(), Times.Once);
+		}
+		
+		[TestMethod]
+		public void FlightService_GetUserInput_MissingFields_PrintMissingFields()
+		{
+			var mockConsoleView = new Mock<IConsoleView>();
+			mockConsoleView.SetupSequence(x => x.GetUserInput()).Returns("add general").Returns("exit");
+
+			var flightService = new FlightService(Mock.Of<IScheduleService>(), mockConsoleView.Object);
+			
+			flightService.Run();
+			
+			mockConsoleView.Verify(x => x.PrintMissingFields(), Times.Once);
 		}
 
 		[TestMethod]
